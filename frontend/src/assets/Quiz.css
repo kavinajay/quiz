@@ -1,0 +1,37 @@
+.di,.cr{
+    padding: 30px;
+    background-color: black;
+    color: white;
+    border-top-left-radius: 100px;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    
+}
+.di{
+    display: flex;
+    justify-content: center;
+    width: 100px;
+}
+
+
+body {
+    background-image: url('./qu.jpg');
+    background-size:cover; /* Cover the whole page */
+    background-repeat: no-repeat; /* Avoid repeating the image */
+    background-attachment: fixed; /* Fix the image in place */
+    background-position: center; /* Center the image */
+}
+
+.main {
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+}
+
+h1{
+    
+    color: rgb(226, 233, 235);
+    margin-bottom: 10%;
+    text-shadow: 0 0 10px #52afaf, 0 0 20px #52afaf, 0 0 30px #52afaf, 0 0 40px #52afaf, 0 0 50px #52afaf, 0 0 60px #52afaf, 0 0 70px #52afaf; 
+}

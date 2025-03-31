@@ -1,0 +1,26 @@
+input{
+    font-size: 20px;
+    height: 40px;
+}
+button{
+    height: 50px;
+    margin-left: 30px;
+}
+button:hover{
+    color: black ;
+    background-color: rgb(43, 226, 107);
+}
+.quiz{
+    margin-left: 250px;
+    font-size: 25px;
+    text-shadow: 0 0 10px #3fb7b7, 0 0 10px #131313, 0 0 10px #101111, 0 0 10px #121212, 0 0 10px #52afaf, 0 0 10px #52afaf, 0 0 10px #52afaf; 
+    width: 150%; /* Keeping the width same */
+    max-width: 600px; /* Adjust to control the medium size */
+    height: 400px; /* Medium box height */
+    overflow-y: auto; /* Enables scrolling inside */
+    scrollbar-width: none;
+}
+.quiz.li:hover{
+    font-size: 30px;
+
+}
