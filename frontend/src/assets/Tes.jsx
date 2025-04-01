@@ -6,26 +6,31 @@ import axios from 'axios';
 function Tes() {
   const [quizName, setQuizName] = useState('');
   const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // Added loader state
   const navigate = useNavigate();
 
   const handleStart = async () => {
-    if (!quizName) {
-      setError('Please enter a quiz name.');
+    if (!quizName.trim()) { // Enhanced validation logic
+      setError('Please enter a valid quiz name.');
       return;
     }
 
+    setIsLoading(true); // Show loading state
+    setError('');
+
     try {
-      const response = await axios.get(`http://localhost:5000/quizzes?title=${quizName}`);
-      if (response.data.questions) {
-        setError('');
-        navigate(`/ontest`, { state: { quizName } });  // Navigate to Conduct component
+      const response = await axios.get(`http://localhost:5000/quizzes/search?title=${quizName}`); // Fixed endpoint
+      if (response.data.questions && response.data.questions.length > 0) { // Check if questions exist
+        navigate('/ontest', { state: { quizName, questions: response.data.questions } }); // Pass questions data
       } else {
-        setError('Quiz not found or no questions available.');
+        setError('Quiz found, but no questions are available.');
       }
     } catch (error) {
       console.error('Error validating quiz name:', error);
-      setError('An error occurred while validating the quiz name.');
+      setError('An error occurred while validating the quiz name. Please try again later.');
     }
+
+    setIsLoading(false); // Hide loading state
   };
 
   return (
@@ -37,8 +42,10 @@ function Tes() {
         value={quizName}
         onChange={(e) => setQuizName(e.target.value)}
       />
-      <button onClick={handleStart}>Start</button>
-      {error && <p>{error}</p>}
+      <button onClick={handleStart} disabled={isLoading}>
+        {isLoading ? 'Validating...' : 'Start'}
+      </button>
+      {error && <p className="error-message">{error}</p>}
     </div>
   );
 }

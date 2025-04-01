@@ -6,6 +6,14 @@ require('dotenv').config(); // Import and configure dotenv
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// MongoDB Connection URI and Options
+const db_password = "kavin@2525";
+const uri = `mongodb+srv://loganayakikavin:${encodeURIComponent(db_password)}@cluster0.bwb1qyq.mongodb.net/myDatabase?retryWrites=true&w=majority`;
+const clientOptions = {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+};
+
 // Middleware
 app.use(express.json());
 app.use(cors());
@@ -13,14 +21,11 @@ app.use(cors());
 // MongoDB Connection
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    console.log('MongoDB connected');
+    await mongoose.connect(uri, clientOptions);
+    console.log("Successfully connected to MongoDB!");
   } catch (err) {
-    console.error('Error connecting to MongoDB:', err);
-    process.exit(1);
+    console.error("Error connecting to MongoDB:", err);
+    process.exit(1); // Exit process if connection fails
   }
 };
 connectDB();
@@ -30,7 +35,6 @@ const UserSchema = new mongoose.Schema({
   username: { type: String, required: true },
   password: { type: String, required: true },
 });
-
 const User = mongoose.model('User', UserSchema);
 
 // Sign Up Route
@@ -72,7 +76,6 @@ const quizSchema = new mongoose.Schema({
     },
   ],
 });
-
 const Quiz = mongoose.model('Quiz', quizSchema);
 
 // Fetch All Quizzes

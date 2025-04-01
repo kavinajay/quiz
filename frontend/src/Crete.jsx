@@ -17,7 +17,7 @@ function Crete() {
 
   async function fetchQuizzes() {
     try {
-      const response = await axios.get('http://localhost:5000/quizze');
+      const response = await axios.get('http://localhost:5000/quizzes'); // Fixed the typo
       setQuizzes(response.data);
     } catch (error) {
       console.error('Error fetching quizzes:', error);
@@ -72,9 +72,7 @@ function Crete() {
       </div>
 
       {selectedQuiz && (
-        <div
-          className="add-question"
-        >
+        <div className="add-question">
           <h2>Add Question to {selectedQuiz.title}</h2>
           <input
             type="text"
