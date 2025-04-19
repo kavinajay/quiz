@@ -17,7 +17,7 @@ function Conduct() {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/quizzes/search?title=${quizName}`); // Corrected endpoint
+        const response = await axios.get(`https://quiz-rfj1.onrender.com/quizzes/search?title=${quizName}`); // Updated to Render URL
         if (response.data.questions && response.data.questions.length > 0) { // Check for valid questions
           setQuestions(response.data.questions);
           setError('');

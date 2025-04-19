@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './assets/Crete.css';
 
+const API_BASE = 'https://quiz-rfj1.onrender.com';
+
 function Crete() {
   const [quizzes, setQuizzes] = useState([]);
   const [newQuizTitle, setNewQuizTitle] = useState('');
@@ -17,7 +19,7 @@ function Crete() {
 
   async function fetchQuizzes() {
     try {
-      const response = await axios.get('http://localhost:5000/quizzes'); // Fixed the typo
+      const response = await axios.get(`${API_BASE}/quizzes`);
       setQuizzes(response.data);
     } catch (error) {
       console.error('Error fetching quizzes:', error);
@@ -26,7 +28,7 @@ function Crete() {
 
   async function handleAddQuiz() {
     try {
-      const response = await axios.post('http://localhost:5000/quizzes', { title: newQuizTitle });
+      const response = await axios.post(`${API_BASE}/quizzes`, { title: newQuizTitle });
       setQuizzes([...quizzes, response.data]);
       setNewQuizTitle('');
     } catch (error) {
@@ -36,7 +38,11 @@ function Crete() {
 
   async function handleAddQuestion() {
     try {
-      const response = await axios.post(`http://localhost:5000/quizzes/${selectedQuiz._id}/questions`, { question, options, answer });
+      const response = await axios.post(`${API_BASE}/quizzes/${selectedQuiz._id}/questions`, {
+        question,
+        options,
+        answer,
+      });
       fetchQuizzes(); // Refresh quizzes to show the updated questions
       setQuestion('');
       setOptions(['', '', '', '']);

@@ -19,7 +19,7 @@ function Tes() {
     setError('');
 
     try {
-      const response = await axios.get(`http://localhost:5000/quizzes/search?title=${quizName}`); // Fixed endpoint
+      const response = await axios.get(`https://quiz-rfj1.onrender.com/quizzes/search?title=${quizName}`); // Updated endpoint
       if (response.data.questions && response.data.questions.length > 0) { // Check if questions exist
         navigate('/ontest', { state: { quizName, questions: response.data.questions } }); // Pass questions data
       } else {
