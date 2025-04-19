@@ -2,10 +2,13 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './App.css';
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import Quiz from './assets/Quiz.jsx'
+import Quiz from './assets/Quiz.jsx';
 import Crete from './Crete.jsx';
 import Tes from './assets/Tes.jsx';
 import Conduct from './assets/Conduct.jsx';
+
+const API_BASE_URL = 'https://quiz-rfj1.onrender.com'; // ✅ Your deployed backend
+
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -18,7 +21,7 @@ function Login() {
 
   async function handleLogin() {
     try {
-      const response = await axios.post('http://localhost:5000/login', { username, password });
+      const response = await axios.post(`${API_BASE_URL}/login`, { username, password });
       alert(response.data);
       navigate('/dashboard'); // Redirect to the dashboard page after successful login
     } catch (error) {
@@ -28,19 +31,21 @@ function Login() {
 
   async function handleSignUp() {
     try {
-      const response = await axios.post('http://localhost:5000/signup', { username, password });
+      const response = await axios.post(`${API_BASE_URL}/signup`, { username, password });
       alert(response.data);
-      navigate('/dashboard'); // Redirect to the welcome page after successful sign up
+      navigate('/dashboard'); // Redirect to the dashboard page after successful sign up
     } catch (error) {
       alert('Sign up failed');
     }
   }
 
   return (
-    <><div className="app">
-      <div className='l' onClick={() => setSignupMode(false)}><b>LOGIN</b></div>
-      <div className='l' onClick={sign}><b>SIGN UP</b></div>
-    </div><div id="c" className='c'>
+    <>
+      <div className="app">
+        <div className='l' onClick={() => setSignupMode(false)}><b>LOGIN</b></div>
+        <div className='l' onClick={sign}><b>SIGN UP</b></div>
+      </div>
+      <div id="c" className='c'>
         <h3>Username</h3>
         <input
           id="user"
@@ -57,7 +62,8 @@ function Login() {
         <button onClick={signupMode ? handleSignUp : handleLogin}>
           {signupMode ? 'SIGN UP' : 'LOGIN'}
         </button>
-      </div></>
+      </div>
+    </>
   );
 }
 
@@ -70,7 +76,7 @@ function App() {
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/Crete" element={<Crete />} />
         <Route path="/Test" element={<Tes />} />
-        <Route path="/ontest" element={<Conduct/>} />
+        <Route path="/ontest" element={<Conduct />} />
       </Routes>
     </Router>
   );
